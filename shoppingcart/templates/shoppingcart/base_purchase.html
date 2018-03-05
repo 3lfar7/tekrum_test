@@ -1,0 +1,44 @@
+{% extends 'shoppingcart/base.html' %}
+{% block main %}
+{% verbatim %}
+<div id="shop" class="shop">
+  <div class="shop__inner">
+    <div class="shop__store">
+      <h2 class="shop__title">Доступные товары</h2>
+      <template v-for="product in products" v-if="!product.inCart">
+        <div class="shop__store-product product" v-on:click="toggleProduct(product.id)">
+          <div class="product__name">{{ product.name }}</div>
+          <div class="product__price">{{ product.price }} грн</div>
+      </template>
+    </div>
+    <div class="shop__separator"></div>
+    <div class="shop__cart">
+      <h2 class="shop__title">Корзина</h2>
+      <div class="shop__cart-inner">
+        <template v-for="product in products" v-if="product.inCart">
+          <div class="shop__cart-product product" v-on:click="toggleProduct(product.id)">
+            <div class="product__name">{{ product.name }}</div>
+            <div class="product__price">{{ product.price }} грн</div>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+  <div class="shop__message message" v-bind:class="{'message--bad': message.bad}" v-if="message.title">
+    <span class="message__text">{{ message.title }}</span>
+    <span class="message__close" v-on:click="closeMessage"></span>
+  </div>
+  <div class="shop__payment payment">
+    <div class="payment__info">
+      <span class="payment__title">Сумма:</span>
+      <div class="payment__price">
+        <span class="payment__cost">{{ priceSum }}</span>
+        <span class="payment__sign">грн</span>
+      </div>
+    </div>
+    <div class="payment__button" v-on:click="createPurchase" v-if="pk === null">Создать покупку</div>
+    <div class="payment__button" v-on:click="updatePurchase" v-if="pk !== null">Обновить покупку</div>
+  </div>
+</div>
+{% endverbatim %}
+{% endblock %}

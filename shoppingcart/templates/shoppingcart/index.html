@@ -1,0 +1,42 @@
+{% extends 'shoppingcart/base.html' %}
+{% block title %}Tekrum тестовое задание{% endblock %}
+{% block header %}
+<div class="header">
+  <h1 class="header__title">Покупки</h1>
+  <a href="/purchases/" class="header__link button">Создать покупку</a>
+</div>
+{% endblock %}
+{% block main %}
+{% verbatim %}
+
+<table id="purchases-table" class="purchases-table">
+  <tr>
+    <th class="purchases-table__title">Дата</th>
+    <th class="purchases-table__title">Чек</th>
+    <th class="purchases-table__title">Сумма</th>
+    <th class="purchases-table__title"></th>
+  </tr>
+  <template v-for="(purchase, index) in purchases">
+    <tr class="purchase">
+      <td class="purchases-table__cell purchase__date">{{ formatDate(purchase.date) }}</td>
+      <td class="purchases-table__cell purchase__product-list product__list" v-on:click="editPurchase(index)">
+        <template v-for="product in purchase.products">
+          <div class="product-list__item">
+            <div class="product-list__name">{{ product.name }}</div>
+            <div class="product-list__price">{{ product.price }} грн</div>
+          </div>
+        </template>
+      </td>
+      <td class="purchases-table__cell purchase__price">{{ purchase.price }} грн</td>
+      <td class="purchases-table__cell purchase__delete" v-on:click="deletePurchase(index)"></td>
+    </tr>
+  </template>
+</table>
+
+{% endverbatim %}
+{% endblock %}
+{% block script %}
+<script>
+var purchaseList = createPurchaseList('#purchases-table');
+</script>
+{% endblock %}

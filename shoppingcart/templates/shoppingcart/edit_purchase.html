@@ -1,0 +1,13 @@
+{% extends 'shoppingcart/base_purchase.html' %}
+{% block title %}Редактирование покупки{% endblock %}
+{% block header %}
+<div class="header">
+  <h1 class="header__title">Редактирование покупки</h1>
+  <a href="/" class="header__link button">Главная</a>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+var shop = createShop('#shop', {{ pk }});
+</script>
+{% endblock %}

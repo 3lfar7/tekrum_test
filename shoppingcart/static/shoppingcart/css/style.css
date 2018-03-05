@@ -1,0 +1,291 @@
+body {
+  font-family: Tahoma;
+  font-size: 16px;
+  color: #333333;
+}
+
+h1 {
+  color: #333333;
+  /* text-align: center; */
+}
+
+.header__title {
+  margin: 10px 0;
+  float: left;
+}
+
+.header__link {
+  float: right;
+  color: blue;
+  text-decoration: none;
+  margin: 10px 0;
+}
+
+.header::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.main-wrapper {
+  width: 900px;
+  margin: 0 auto;
+}
+
+.purchases-table {
+  border-collapse: collapse;
+}
+
+.purchases-table__title:nth-child(1) {
+    width: 150px;
+}
+
+.purchases-table__title:nth-child(2) {
+  width: 500px;
+}
+
+.purchases-table__title:nth-child(3) {
+  width: 200px;
+}
+
+.purchases-table__cell:nth-child(4) {
+  width: 50px;
+  background-image: url('/static/shoppingcart/images/cross.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px 16px;
+}
+
+.purchases-table__title {
+  border-bottom: 1px solid #aaaaaa;
+  background-color: #1F81D3;
+  color: white;
+  /* text-align: left; */
+}
+
+.purchases-table__title,
+.purchases-table__cell {
+  vertical-align: top;
+  padding: 30px 10px;
+  border-right: 1px solid #aaaaaa;
+}
+
+.purchases-table__title:last-child,
+.purchases-table__cell:last-child {
+  border-right: none;
+}
+
+.purchases-table__cell:nth-child(3) {
+  text-align: right;
+}
+
+.purchase__product-list {
+  /* font-size: 14px; */
+  cursor: pointer;
+  /* font-weight: bold; */
+}
+
+.purchase__date {
+  /* font-size: 14px; */
+  /* font-weight: bold; */
+}
+
+.purchase__price {
+  font-weight: bold;
+}
+
+.purchase__delete {
+  cursor: pointer;
+}
+
+.purchase__delete:hover {
+  background-color: red;
+}
+
+.purchase:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.purchase:hover {
+  background-color: #efefef;
+}
+
+.purchase:hover .purchase__product-list {
+  background-color: #E5F5FF;
+  /* color: white; */
+}
+
+.purchase:hover .purchase__delete {
+  background-color: Red;
+  background-image: url('/static/shoppingcart/images/cross-white.png');
+}
+
+.purchase__product-list:hover {
+  background-color: #c7e9fe !important;
+}
+
+.purchase__delete:hover {
+  background-color: FireBrick !important;
+}
+
+.product-list__name {
+  float: left;
+}
+
+.product-list__price {
+  float: right;
+}
+
+.product-list__item {
+  padding: 10px 0;
+}
+
+.product-list__item:first-child {
+  padding-top: 0;
+}
+
+.product-list__item:last-child {
+  padding-bottom: 0;
+}
+
+
+.product-list__item::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+
+
+
+
+.shop__inner {
+  position: relative;
+  border-color: #aaaaaa;
+  border-style: solid;
+  border-width: 1px 0;
+}
+
+.shop__inner::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.shop__title {
+  border-bottom: 1px solid #aaaaaa;
+  margin: 0;
+  padding: 10px;
+  font-size: 20px;
+}
+
+.shop__separator {
+  position: absolute;
+  left: 50%;
+  height : 100%;
+  border-left: 1px solid #aaaaaa;
+}
+
+.shop__store,
+.shop__cart {
+  float: left;
+  box-sizing: border-box;
+  width: 450px;
+}
+
+.shop__cart-inner {
+  background-color: #efefef;
+}
+
+.product {
+  padding: 10px;
+}
+
+.product:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.product__name {
+  float: left;
+}
+
+.product__price {
+  float: right;
+}
+
+.product::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.shop__store-product:hover {
+  background-color: #1F81D3;
+}
+
+.shop__cart-product:hover {
+  background-color: red;
+}
+
+.shop__payment {
+  margin-top: 10px;
+  float: right;
+}
+
+.payment {
+  padding: 10px;
+  background-color: yellow;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.payment__info {
+  margin: 10px 0;
+}
+
+.payment__price {
+  float: right;
+}
+
+.button,
+.payment__button {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px;
+  background-color: green;
+  color: white;
+  cursor: pointer;
+}
+
+.button:hover,
+.payment__button:hover {
+  background-color: SeaGreen;
+}
+
+.shop__message {
+  margin: 10px 0;
+}
+
+.message {
+  position: relative;
+  background-color: green;
+  color: white;
+  padding: 10px;
+}
+
+.message--bad {
+  background-color: red;
+}
+
+.message__close {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  background-image: url('/static/shoppingcart/images/delete.png');
+  background-size: 24px 24px;
+  width: 24px;
+  height: 24px;
+  display: block;
+  cursor: pointer;
+}

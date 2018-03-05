@@ -1,0 +1,42 @@
+[
+  {
+    "model": "shoppingcart.product",
+    "pk": 1,
+    "fields": {
+      "name": "Хлеб",
+      "price": "12.75"
+    }
+  },
+  {
+    "model": "shoppingcart.product",
+    "pk": 2,
+    "fields": {
+      "name": "Молоко",
+      "price": "20.60"
+    }
+  },
+  {
+    "model": "shoppingcart.product",
+    "pk": 3,
+    "fields": {
+      "name": "Масло",
+      "price": "40.50"
+    }
+  },
+  {
+    "model": "shoppingcart.product",
+    "pk": 4,
+    "fields": {
+      "name": "Мясо",
+      "price": "125.00"
+    }
+  },
+  {
+    "model": "shoppingcart.product",
+    "pk": 5,
+    "fields": {
+      "name": "Сыр",
+      "price": "175.00"
+    }
+  }
+]
