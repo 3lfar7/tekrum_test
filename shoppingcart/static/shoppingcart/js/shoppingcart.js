@@ -13,11 +13,12 @@ function ajax(url, method, data, callback) {
   }
 }
 
-function createShop(el, pk) {
+function createShop(el, productListUrl, purchaseListUrl, purchaseDetailUrl) {
   return new Vue({
     el: el,
     data: {
-      pk: pk === undefined ? null : pk,
+      purchaseDetailUrl: purchaseDetailUrl,
+      // pk: pk === undefined ? null : pk,
       products: {},
       message: {
         title: '',
@@ -29,18 +30,20 @@ function createShop(el, pk) {
       toggleProduct: function (id) {
         var product = this.products[id];
         product.inCart = !product.inCart;
+        var priceSum = this.priceSum;
         if (product.inCart) {
-          this.priceSum += parseFloat(product.price);
+          priceSum += parseFloat(product.price);
         } else {
-          this.priceSum -= parseFloat(product.price);
+          priceSum -= parseFloat(product.price);
         }
+        this.priceSum = Math.round(priceSum * 100) / 100;
       },
       createPurchase: function () {
         var self = this;
         var data = {
           products: this.getCartProducts()
         }
-        ajax('/api/purchases/', 'POST', data, function (status, responseText) {
+        ajax(purchaseListUrl, 'POST', data, function (status, responseText) {
           if (status == 201) {
             var purchase = JSON.parse(responseText);
             // console.log(responseText);
@@ -55,7 +58,7 @@ function createShop(el, pk) {
       updatePurchase: function () {
         var self = this;
         data = {products: this.getCartProducts()};
-        ajax('/api/purchases/' + this.pk + '/', 'PUT', data, function (status, responseText) {
+        ajax(purchaseDetailUrl, 'PUT', data, function (status, responseText) {
           if (status == 200) {
             self.message.title = 'Покупка успешно обновлена';
             self.message.bad = false;
@@ -77,25 +80,31 @@ function createShop(el, pk) {
       },
       fetchProducts: function () {
         var self = this;
-        ajax('/api/products/', 'GET', null, function (status, responseText) {
+        var tempProducts = {};
+        ajax(productListUrl, 'GET', null, function (status, responseText) {
           var products = JSON.parse(responseText);
           products.forEach(function (product) {
             product.inCart = false;
-            self.$set(self.products, product.id, product);
+            tempProducts[product.id] = product;
           });
-          if (self.pk !== null) {
-            self.fetchPurchase();
+          if (self.purchaseDetailUrl) {
+            self.fetchPurchase(tempProducts);
+          } else {
+            self.products = tempProducts;
           }
         });
       },
-      fetchPurchase: function () {
+      fetchPurchase: function (tempProducts) {
         var self = this;
-        ajax('/api/purchases/' + this.pk + '/', 'GET', null, function (status, responseText) {
+        ajax(purchaseDetailUrl, 'GET', null, function (status, responseText) {
           var purchase = JSON.parse(responseText);
+          var priceSum = 0;
           purchase.products.forEach(function (productId) {
-            self.$set(self.products[productId], 'inCart', true);
-            self.priceSum += parseFloat(self.products[productId].price);
+            tempProducts[productId].inCart = true;
+            priceSum += parseFloat(tempProducts[productId].price);
           });
+          self.priceSum = Math.round(priceSum * 100) / 100;
+          self.products = tempProducts;
         });
       },
       closeMessage: function () {
@@ -108,7 +117,7 @@ function createShop(el, pk) {
   });
 }
 
-function createPurchaseList(el) {
+function createPurchaseList(el, url) {
   return new Vue({
     el: el,
     data: {
@@ -117,20 +126,17 @@ function createPurchaseList(el) {
     methods: {
       fetchPurchases: function () {
         var self = this;
-        ajax('/api/purchases/?nested=true', 'GET', null, function (status, responseText) {
+        ajax(url + '?nested=true', 'GET', null, function (status, responseText) {
+          // console.log(responseText);
           self.purchases = JSON.parse(responseText);
-          self.purchases.forEach(function (purchase) {
-
-            console.log(typeof(purchase.date));
-          });
         });
       },
       editPurchase: function (index) {
-        window.location = '/purchases/' + this.purchases[index].id + '/';
+        window.location = this.purchases[index].edit_url;
       },
       deletePurchase: function (index) {
         var self = this;
-        ajax('/api/purchases/' + this.purchases[index].id + '/', 'DELETE', null, function (status, responseText) {
+        ajax(this.purchases[index].url, 'DELETE', null, function (status, responseText) {
           self.purchases.splice(index, 1);
         });
       },
@@ -160,7 +166,6 @@ function createPurchaseList(el) {
     },
     created: function () {
       this.fetchPurchases();
-
     }
   });
 }

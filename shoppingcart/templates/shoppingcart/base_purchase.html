@@ -36,8 +36,8 @@
         <span class="payment__sign">грн</span>
       </div>
     </div>
-    <div class="payment__button" v-on:click="createPurchase" v-if="pk === null">Создать покупку</div>
-    <div class="payment__button" v-on:click="updatePurchase" v-if="pk !== null">Обновить покупку</div>
+    <div class="payment__button" v-on:click="createPurchase" v-if="!purchaseDetailUrl">Создать покупку</div>
+    <div class="payment__button" v-on:click="updatePurchase" v-if="purchaseDetailUrl">Обновить покупку</div>
   </div>
 </div>
 {% endverbatim %}

@@ -3,12 +3,11 @@
 {% block header %}
 <div class="header">
   <h1 class="header__title">Покупки</h1>
-  <a href="/purchases/" class="header__link button">Создать покупку</a>
+  <a href="{% url 'create-purchase' %}" class="header__link button">Создать покупку</a>
 </div>
 {% endblock %}
 {% block main %}
 {% verbatim %}
-
 <table id="purchases-table" class="purchases-table">
   <tr>
     <th class="purchases-table__title">Дата</th>
@@ -32,11 +31,10 @@
     </tr>
   </template>
 </table>
-
 {% endverbatim %}
 {% endblock %}
 {% block script %}
 <script>
-var purchaseList = createPurchaseList('#purchases-table');
+var purchaseList = createPurchaseList('#purchases-table', "{% url 'purchase-list' %}");
 </script>
 {% endblock %}

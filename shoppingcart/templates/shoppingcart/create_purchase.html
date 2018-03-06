@@ -3,11 +3,11 @@
 {% block header %}
 <div class="header">
   <h1 class="header__title">Создание покупки</h1>
-  <a href="/" class="header__link button">Главная</a>
+  <a href="{% url 'index' %}" class="header__link button">Главная</a>
 </div>
 {% endblock %}
 {% block script %}
 <script>
-var shop = createShop('#shop', null);
+var shop = createShop('#shop', "{% url 'product-list' %}", "{% url 'purchase-list' %}");
 </script>
 {% endblock %}
